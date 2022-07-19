@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+}
+.main-page {
+  width: 1170px;
+  height: 1500px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+header {
+  background-color: aqua;
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+.card-shelf {
+  background-color: cadetblue;
+  margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.body {
+  display: flex;
+}
+aside {
+  width: 200px;
+  background-color: burlywood;
+  margin-left: 20px;
+}
+h2 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+}
+
+.book-card {
+  width: 170px;
+  background-color: bisque;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px;
+}
+
+.book-title,
+.book-author,
+.book-number-of-pages,
+.did-you-read {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
