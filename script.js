@@ -26,9 +26,9 @@ const bookProto = {
       return bookId;
     }
 
-    cardShelf.insertAdjacentHTML(
-      "beforeend",
-      `<div class="book-card" id="${makeBookId()}">
+    const newBookItem = document.createElement("div");
+    newBookItem.textContent = `
+    <div class="book-card" id="${makeBookId()}">
     <div class="book-title">
       <h2>Book Title</h2>
       <p class="the-title">${bookName}</p>
@@ -44,14 +44,39 @@ const bookProto = {
     <div class="did-you-read">
       <h2>Did you read</h2>
       <p class="yes-no">${didYouRead()}</p>
-  
+      <button class="test">Test</button>
     </div>
-    </div>`
-    );
+    </div>`;
+    cardShelf.appendChild(newBookItem);
 
-    clearFeilds();
+    // cardShelf.insertAdjacentHTML(
+    //   "beforeend",
+    //   `<div class="book-card" id="${makeBookId()}">
+    // <div class="book-title">
+    //   <h2>Book Title</h2>
+    //   <p class="the-title">${bookName}</p>
+    // </div>
+    // <div class="book-author">
+    //   <h2>The Author</h2>
+    //   <p class="the-author">${bookAuthor}</p>
+    // </div>
+    // <div class="book-number-of-pages">
+    //   <h2>Number of pages</h2>
+    //   <p class="the-number">${numberOfPages}</p>
+    // </div>
+    // <div class="did-you-read">
+    //   <h2>Did you read</h2>
+    //   <p class="yes-no">${didYouRead()}</p>
+    //   <button class="test">Test</button>
+    // </div>
+    // </div>`
+    // );
+
+    clearFelids();
   },
 };
+
+// todo onclick="parentElement.remove();"
 
 //* create the book object with bookProto as prototype...
 function submitBook() {
@@ -63,24 +88,34 @@ function submitBook() {
     },
   });
 
-  //* push the object to bookList Array...
+  //~ push the object to bookList Array...
   bookList.push(obj);
 
-  //* add new book to HTML...
+  //~ add new book to HTML...
   bookProto.addNewBookToShelf(
     bookList[bookList.length - 1].bookName,
     bookList[bookList.length - 1].bookAuthor,
     bookList[bookList.length - 1].numberOfPages
   );
-  console.log("new book submited to book list at position " + bookList.length);
+  console.log("new book submitted to book list at position " + bookList.length);
   console.log(bookList[bookList.length - 1]);
   console.log(bookList);
 }
 
+function checkIndex() {
+  console.log("checkIndex");
+  const indexOfObject = bookList.findIndex((book) => {
+    return book.bookName === "saeed";
+  });
+  console.log(indexOfBook);
+  arr.splice(indexOfBook, 1);
+  console.log(bookList);
+}
 document.querySelector("#submit").addEventListener("click", submitBook);
+document.querySelector(".test").addEventListener("click", checkIndex);
 
-//* Clear input feilds method...
-function clearFeilds() {
+//* Clear input felids method...
+function clearFelids() {
   document.getElementById("inp-book-title").value = "";
   document.getElementById("inp-the-author").value = "";
   document.getElementById("inp-number-of-pages").value = null;
