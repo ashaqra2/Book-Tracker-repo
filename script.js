@@ -18,12 +18,6 @@ const bookProto = {
       }
       return didYouRead;
     }
-    // function makeBookId() {
-    //   let id1 = bookName.trim();
-    //   let id2 = bookAuthor.trim();
-    //   bookId = `${id1}-${id2}-${numberOfPages}`;
-    //   return bookId;
-    // }
 
     cardShelf.insertAdjacentHTML(
       "beforeend",
@@ -47,29 +41,6 @@ const bookProto = {
     </div>
     </div>`
     );
-
-    // cardShelf.insertAdjacentHTML(
-    //   "beforeend",
-    //   `<div class="book-card" id="${makeBookId()}">
-    // <div class="book-title">
-    //   <h2>Book Title</h2>
-    //   <p class="the-title">${bookName}</p>
-    // </div>
-    // <div class="book-author">
-    //   <h2>The Author</h2>
-    //   <p class="the-author">${bookAuthor}</p>
-    // </div>
-    // <div class="book-number-of-pages">
-    //   <h2>Number of pages</h2>
-    //   <p class="the-number">${numberOfPages}</p>
-    // </div>
-    // <div class="did-you-read">
-    //   <h2>Did you read</h2>
-    //   <p class="yes-no">${didYouRead()}</p>
-    //   <button class="test">Test</button>
-    // </div>
-    // </div>`
-    // );
 
     clearFelids();
   },
