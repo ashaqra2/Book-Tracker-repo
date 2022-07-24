@@ -8,7 +8,7 @@ const cardShelf = document.querySelector(".card-shelf");
 
 //* Making the ProtoType for the objects...
 const bookProto = {
-  addNewBookToShelf: function (bookName, bookAuthor, numberOfPages) {
+  addNewBookToShelf: function (bookName, bookAuthor, numberOfPages, bookId) {
     function didYouRead() {
       let didYouRead = "";
       if (yesChecked.checked == true) {
@@ -18,17 +18,16 @@ const bookProto = {
       }
       return didYouRead;
     }
-    function makeBookId() {
-      let bookId = "";
-      let id1 = bookName.trim();
-      let id2 = bookAuthor.trim();
-      bookId = id1 + "-" + id2 + "-" + numberOfPages;
-      return bookId;
-    }
+    // function makeBookId() {
+    //   let id1 = bookName.trim();
+    //   let id2 = bookAuthor.trim();
+    //   bookId = `${id1}-${id2}-${numberOfPages}`;
+    //   return bookId;
+    // }
 
-    const newBookItem = document.createElement("div");
-    newBookItem.textContent = `
-    <div class="book-card" id="${makeBookId()}">
+    cardShelf.insertAdjacentHTML(
+      "beforeend",
+      `<div class="book-card" id="${bookList[bookList.length - 1].bookId}">
     <div class="book-title">
       <h2>Book Title</h2>
       <p class="the-title">${bookName}</p>
@@ -44,10 +43,10 @@ const bookProto = {
     <div class="did-you-read">
       <h2>Did you read</h2>
       <p class="yes-no">${didYouRead()}</p>
-      <button class="test">Test</button>
+      <button id="${bookList[bookList.length - 1].bookId}-btn">Test</button>
     </div>
-    </div>`;
-    cardShelf.appendChild(newBookItem);
+    </div>`
+    );
 
     // cardShelf.insertAdjacentHTML(
     //   "beforeend",
@@ -76,15 +75,28 @@ const bookProto = {
   },
 };
 
-// todo onclick="parentElement.remove();"
+function GenerateRandomNumber() {
+  let random;
+  random = Math.floor(Math.random() * 10) * 10 + Math.floor(Math.random() * 10);
+  return random;
+}
+function GenerateUniqueId() {
+  let uniqueId = "";
+  uniqueId = `book${GenerateRandomNumber()}-${GenerateRandomNumber()}-${GenerateRandomNumber()}`;
+  return uniqueId;
+}
 
 //* create the book object with bookProto as prototype...
 function submitBook() {
+  Observe();
   const obj = Object.create(bookProto, {
     bookName: { value: document.getElementById("inp-book-title").value },
     bookAuthor: { value: document.getElementById("inp-the-author").value },
     numberOfPages: {
       value: document.getElementById("inp-number-of-pages").value,
+    },
+    bookId: {
+      value: GenerateUniqueId(),
     },
   });
 
@@ -107,12 +119,28 @@ function checkIndex() {
   const indexOfObject = bookList.findIndex((book) => {
     return book.bookName === "saeed";
   });
-  console.log(indexOfBook);
-  arr.splice(indexOfBook, 1);
+  console.log(indexOfObject);
+  bookList.splice(indexOfObject, 1);
   console.log(bookList);
 }
+//todo ------------------------------------------------------------------
+function Observe() {
+  console.log("Observing changes to card shelf");
+  const mutationObserver = new MutationObserver((entries) => {
+    console.log(entries);
+    console.log("Observe new");
+    document
+      .querySelector(`#${bookList[bookList.length - 1].bookId}`)
+      .addEventListener("click", checkIndex);
+  });
+  mutationObserver.observe(cardShelf, { childList: true });
+  setTimeout(() => {
+    console.log("disconnect Observer function");
+    mutationObserver.disconnect();
+  }, 100);
+}
+
 document.querySelector("#submit").addEventListener("click", submitBook);
-document.querySelector(".test").addEventListener("click", checkIndex);
 
 //* Clear input felids method...
 function clearFelids() {
